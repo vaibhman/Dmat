@@ -29,8 +29,18 @@ CREATE TABLE transactions(
 	FOREIGN KEY(accountNo) REFERENCES userAccounts(accountNo)
 );
 
+CREATE TABLE idgenerator(
+	objectname VARCHAR(40), 
+	latestid INT
+);
+
 
 #Insert Values
+INSERT INTO idgenerator (objectname, latestid)
+VALUES("transactions", 0);
+INSERT INTO idgenerator (objectname, latestid)
+VALUES("userAccounts", 100000000);
+
 
 INSERT INTO userAccounts (accountNo, userName, password, accountBalance)
 VALUES(999999999, 'Vinod Mahajan', 'vino1234', 1567.33);

@@ -80,6 +80,7 @@ public class UserOperation extends BaseOperation{
 		int shareId = this.getShareIdInput();
 		
 		String shareName = ShareManager.getInstance().getShareName(shareId);
+		
 
 	}
 
