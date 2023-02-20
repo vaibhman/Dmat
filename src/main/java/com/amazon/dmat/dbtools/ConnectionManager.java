@@ -17,8 +17,8 @@ import java.sql.SQLException;
 public class ConnectionManager {
 
 	private static Connection con;
-	public static String FILEPATH="C:/Users/vaibh/eclipse-workspace/classifieds/dbconfig.txt";
-	public static String URL="jdbc:mysql://localhost:3306/classifiedsdb?serverTimezone=UTC";
+	public static String FILEPATH="C:/Users/vaibh/eclipse-workspace/dmat/dbconfig.txt";
+	public static String URL="jdbc:mysql://localhost:3306/dmatdb?serverTimezone=UTC";
 	public static String USER="root";
 	public static String PASSWORD="password";
 

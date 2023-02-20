@@ -1,19 +1,15 @@
 package com.amazon.dmat;
 
-import com.amazon.classifieds.dbtools.ConnectionManager;
-import com.amazon.classifieds.operations.AppDriver;
+import com.amazon.dmat.dbtools.ConnectionManager;
+import com.amazon.dmat.operations.UserLoginOperation;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )
     {
 
 		System.out.println( "************************************************" );
-		System.out.println( "Welcome to Amazon Internal  Classified App" );
+		System.out.println( "Welcome to D-MAT Trading Account Manager App" );
 		System.out.println( "************************************************" );
 		
 		if(args.length>0) {
@@ -21,7 +17,7 @@ public class App
 		}
 		
 				
-		AppDriver appDriver= new AppDriver();
+		UserLoginOperation appDriver= new UserLoginOperation();
 		appDriver.initiate();
     }
 }

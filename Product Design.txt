@@ -1,0 +1,33 @@
+OOPS 
+	1. User	
+				accountNo 		: Account number (Unique Id);
+				userName 		: User name; 
+				accountBalance	: Money in the account 
+				userShares		: List of shares
+				shareCounts		: hashmap<ShareName, number of shares baught>
+				
+	2. Share
+				shareId		: Id of Share(Unique Id)
+				shareName	: Name of Share
+				sharePrice	: Price of Share
+				
+	3. Transaction
+				transactionId	: Transaction Id	
+				shareId			: Id of Share(Foreign key)
+				accountNo		: Account number of user(Foreign key)
+				transactionTime	: Data & time the share was bought or sold
+				tNoOfShare		: Number of shares that were transacted
+				tSharePrice		: at which price share was bought or sold
+				tCharge			: The charge on transaction
+				tFinalAmount	: Final Amount of Transaction
+				tAction			: Buy or sell
+				
+	4. Charge
+				transactionCharge		: transaction charge of 0.5%
+				securitiesTransferTax	: of 0.1% of the overall transaction
+				totalCharge				: Total charge on transaction
+				
+				
+RelationShips 
+	UserAc has Transaction 	| 1 to many
+	UserAC has Share 		| 1 to many
