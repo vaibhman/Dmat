@@ -149,11 +149,21 @@ public class UserOperation extends BaseOperation{
 
 		TransactionManager.getInstance().create(newTransaction);
 		
-		CurrentHolding newHolding = AssetFactory
+		if(CurrentHoldingManager
 				.getInstance()
-				.getCurrentHoldingInstance(accountNo, shareId, shareName, tShareQuantity, tSharePrice);
+				.isShareInUserAccount(accountNo,shareId)) {
+			int availableQuantity = CurrentHoldingManager.getInstance().availableQuantity(accountNo, shareId);
+			CurrentHoldingManager.getInstance().update(accountNo, shareId, "shareQuantity", availableQuantity+tShareQuantity);
+			
+		}else {
+			CurrentHolding newHolding = AssetFactory
+					.getInstance()
+					.getCurrentHoldingInstance(accountNo, shareId, shareName, tShareQuantity, tSharePrice);
+			
+			CurrentHoldingManager.getInstance().create(newHolding);
+		}
 		
-		CurrentHoldingManager.getInstance().create(newHolding);
+
 		
 		System.out.println("\nTransaction Successfull!!!");
 		System.out.println(tShareQuantity+" share of "+shareName+" Added to Your Account");
@@ -209,6 +219,11 @@ public class UserOperation extends BaseOperation{
 				.getCurrentHoldingInstance(accountNo, shareId, shareName, tShareQuantity, tSharePrice);
 		
 		CurrentHoldingManager.getInstance().create(newHolding);
+		
+		int newAvailableQuantity = CurrentHoldingManager.getInstance().availableQuantity(accountNo, shareId);
+		if(newAvailableQuantity<1){
+			CurrentHoldingManager.getInstance().delete(accountNumber, shareId);
+		}		
 		
 		System.out.println("\nTransaction Successfull !!!");
 		System.out.println(tShareQuantity+" share of "+shareName+" Sold!");

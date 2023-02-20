@@ -15,7 +15,6 @@ public class CurrentHoldingManager extends BaseManager{
 		return currentHoldingManager;
 	}
 	
-	
 	public void create(CurrentHolding currentHolding) throws ApplicationException {
 		QueryBuilder queryBuilder = this.getInsertInstance()
 				.onTable("currentHoldings")
@@ -30,6 +29,28 @@ public class CurrentHoldingManager extends BaseManager{
 		this.executeQuery(sqlQuery);
 	}
 	
+	public void update(int accountNo, int shareId, String field, int newValue) throws ApplicationException {
+		QueryBuilder queryBuilder = this.getUpdateInstance()
+				.onTable("currentHoldings")
+				.updateValue(field, newValue)
+				.whereEq("accountNo", accountNo)
+				.whereEq("shareId", shareId);
+
+		String sqlQuery = this.buildQuery(queryBuilder);
+
+		this.executeQuery(sqlQuery);
+	}
+	
+	  public void delete(int accountNo, int shareId) throws ApplicationException {
+		    QueryBuilder queryBuilder = this.getDeleteInstance()
+		            .onTable("currentHoldings")
+		            .whereEq("accountNo", accountNo)
+		            .whereEq("shareId", shareId);
+
+		    String sqlQuery = this.buildQuery(queryBuilder);
+
+		    this.executeQuery(sqlQuery);
+		  }
 	
 	public boolean viewUserShares(int accountNo) throws ApplicationException {
 		String[] columns= {"shareName", "shareQuantity", "shareBuyPrice"};
@@ -62,5 +83,20 @@ public class CurrentHoldingManager extends BaseManager{
 		String sqlQuery = this.buildQuery(queryBuilder);
 		
 		return this.getQueryNumber(sqlQuery);
+	}
+
+	public boolean isShareInUserAccount(int accountNo, int shareId) throws ApplicationException {
+		QueryBuilder queryBuilder = this.getSelectInstance()
+				.onTable("currentHoldings")
+				.whereEq("accountNo", accountNo)
+				.whereEq("shareId", shareId);
+
+		String sqlQuery = this.buildQuery(queryBuilder);
+		
+	    if (!this.hasResult(sqlQuery)) {
+	        System.out.println("No Bus Records Found");
+	        return false;
+	      }
+		return true;
 	}
 }

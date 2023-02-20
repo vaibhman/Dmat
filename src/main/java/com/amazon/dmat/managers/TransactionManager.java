@@ -46,14 +46,14 @@ public class TransactionManager extends BaseManager {
 	  }
 
 	  public void update(int transactionId, String field, int newValue) throws ApplicationException {
-	    QueryBuilder queryBuilder = this.getUpdateInstance()
-	            .onTable("transactions")
-	            .updateValue(field, newValue)
-	            .whereEq("transactionId", transactionId);
+		  QueryBuilder queryBuilder = this.getUpdateInstance()
+				  .onTable("transactions")
+				  .updateValue(field, newValue)
+				  .whereEq("transactionId", transactionId);
 
-	    String sqlQuery = this.buildQuery(queryBuilder);
+		  String sqlQuery = this.buildQuery(queryBuilder);
 
-	    this.executeQuery(sqlQuery);
+		  this.executeQuery(sqlQuery);
 	  }
 	  
 	  public boolean viewUserTransactions(int accountNo) throws ApplicationException {
