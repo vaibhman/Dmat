@@ -4,9 +4,11 @@ import java.sql.SQLException;
 
 import com.amazon.dmat.assets.AssetFactory;
 import com.amazon.dmat.assets.Charge;
+import com.amazon.dmat.assets.CurrentHolding;
 import com.amazon.dmat.assets.Transaction;
 import com.amazon.dmat.customExceptions.ApplicationException;
 import com.amazon.dmat.customExceptions.UserException;
+import com.amazon.dmat.managers.CurrentHoldingManager;
 import com.amazon.dmat.managers.ShareManager;
 import com.amazon.dmat.managers.TransactionManager;
 import com.amazon.dmat.managers.UserManager;
@@ -109,6 +111,12 @@ public class UserOperation extends BaseOperation{
 		UserManager.getInstance().setAccountBalance(accountNo, accountBalance-tFinalAmount);
 
 		TransactionManager.getInstance().create(newTransaction);
+		
+		CurrentHolding newHolding = AssetFactory
+				.getInstance()
+				.getCurrentHoldingInstance(accountNo, shareId, shareName, tShareQuantity, tSharePrice);
+		
+		CurrentHoldingManager.getInstance().create(newHolding);
 		
 		System.out.println("\nTransaction Successfull!!!");
 		System.out.println(tShareQuantity+" share of "+shareName+" Added to Your Account");

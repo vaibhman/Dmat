@@ -34,6 +34,14 @@ CREATE TABLE idgenerator(
 	latestid INT
 );
 
+CREATE TABLE currentHoldings(
+	accountNo INT,
+	shareId	INT,
+	shareName VARCHAR(50),
+	shareQuantity INT,
+	shareBuyPrice FLOAT(11,2)
+);
+
 
 #Insert Values
 INSERT INTO idgenerator (objectname, latestid)

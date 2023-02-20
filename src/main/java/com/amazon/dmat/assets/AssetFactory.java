@@ -36,4 +36,8 @@ public class AssetFactory {
 		return new Transaction(transactionId, tType, shareId, shareName, tSharePrice,
 				 			tShareQuantity, tCharge, tFinalAmount, transactionTime, accountNo);
 	}
+	
+	public CurrentHolding getCurrentHoldingInstance(int accountNo, int shareId, String shareName, int shareQuantity, float shareBuyPrice) {
+		return new CurrentHolding(accountNo, shareId, shareName,shareQuantity,shareBuyPrice);
+	}
 }

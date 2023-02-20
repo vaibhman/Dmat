@@ -21,6 +21,9 @@ public class Charge {
 	private static Charge chargeObject;
 	
 	public Charge getInstance() {
+		if(chargeObject==null) {
+			chargeObject= new Charge();
+		}
 		return chargeObject;
 	}
 
