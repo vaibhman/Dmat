@@ -51,11 +51,13 @@ public class UserOperation extends BaseOperation{
 				
 			case "3":
 				try {
-					UserManager.getInstance().withdrawMoney(accountNo, accountBalance);
-					System.out.println("/nMoney Withdrawed Successfully /n"
-							+ "The money will be credited to your account within 3-5 business days/n");
-					float newAccountBalance= UserManager.getInstance().getAccountBalance(accountNo);
-					System.out.println("Updated Account Balance is: "+newAccountBalance);
+					if(UserManager.getInstance().withdrawMoney(accountNo, accountBalance)) {
+						System.out.println("/nMoney Withdrawed Successfully /n"
+								+ "The money will be credited to your account within 3-5 business days/n");
+						float newAccountBalance= UserManager.getInstance().getAccountBalance(accountNo);
+						System.out.println("Updated Account Balance is: "+newAccountBalance);
+					}
+
 				} catch (ClassNotFoundException | SQLException | ApplicationException | UserException e) {
 					System.out.println("Something Went Wrong...");
 					e.printStackTrace();
@@ -79,8 +81,9 @@ public class UserOperation extends BaseOperation{
 				System.out.println("Please Enter Valid Option");
 			}
 		}
-
-		System.out.println("Thank You For Using our Dmat Application\n");
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("---Thank You For Using our Dmat Application---\n");
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	}
 
 	private boolean displayAcDetails(int accountNo) throws ApplicationException {

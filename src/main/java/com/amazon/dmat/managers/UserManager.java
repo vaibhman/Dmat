@@ -24,8 +24,9 @@ public class UserManager extends BaseManager{
 		QueryBuilder queryBuilder = this.getInsertInstance()
 				.onTable("userAccounts")
 				.insertValue("accountNo", user.getAccountNo())
-				.insertValue("name", user.getUserName())
-				.insertValue("email", user.getAccountBalance());
+				.insertValue("userName", user.getUserName())
+				.insertValue("accountBalance", user.getAccountBalance())
+				.insertValue("password", user.getPassword());
 		
 		String sqlQuery = this.buildQuery(queryBuilder);
 
@@ -114,7 +115,8 @@ public class UserManager extends BaseManager{
 		System.out.println("Enter Amount to Withdraw: ");
 		float amount = this.getAmountInput(); 
 		if(amount>accountBalance) {
-			throw new UserException("\n Can't withdraw more that Account balance");
+			System.out.println("\nCan't withdraw more than Wallet balance\n");
+			return false;
 		}
 		System.out.println("Enter Bank Account No. : ");
 		@SuppressWarnings("unused")

@@ -30,14 +30,15 @@ public class TransactionManager extends BaseManager {
 	    QueryBuilder queryBuilder = this.getInsertInstance()
 	            .onTable("transactions")
 	            .insertValue("transactionId", transaction.getTransactionId())
+	            .insertValue("tType",transaction.gettType())
 	            .insertValue("shareId", transaction.getShareId())
-	            .insertValue("accountNo", transaction.getAccountNo())
-	            .insertValue("transactionTime", transaction.getTransactionTime())
-	            .insertValue("tShareQuantity", transaction.gettShareQuantity())
+	            .insertValue("shareName", transaction.getShareName())
 	            .insertValue("tSharePrice", transaction.gettSharePrice())
+	            .insertValue("tShareQuantity", transaction.gettShareQuantity())
 	            .insertValue("tCharge",transaction.gettCharge())
 	            .insertValue("tFinalAmount",transaction.gettFinalAmount())
-	            .insertValue("tType",transaction.gettType());
+	            .insertValue("transactionTime", transaction.getTransactionTime())
+	            .insertValue("accountNo", transaction.getAccountNo());
 
 	    String sqlQuery = this.buildQuery(queryBuilder);
 

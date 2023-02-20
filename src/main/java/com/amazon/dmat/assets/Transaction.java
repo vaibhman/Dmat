@@ -2,15 +2,16 @@ package com.amazon.dmat.assets;
 
 
 /*
- * transactionId	: Transaction Id
+ * transactionId	: Transaction Id	
+ * tType			: Buy or sell
  * shareId			: Id of Share(Foreign key)
- * accountNo		: Account number of user(Foreign key)
- * transactionTime	: Data & time the share was bought or sold
- * tShareQuantity	: Number of shares that were transacted
+ * shareName		: Name of Share
  * tSharePrice		: at which price share was bought or sold
+ * tShareQuantity	: Number of shares that were transacted
  * tCharge			: The charge on transaction
  * tFinalAmount	: Final Amount of Transaction
- * tType			: Buy or sell
+ * transactionTime	: Data & time the share was bought or sold				
+ * accountNo		: Account number of user(Foreign key)
 */
 
 
