@@ -39,6 +39,12 @@ public class UserLoginOperation extends BaseOperation{
 				break;
 
 			case "2":
+				try {
+					setLoginDetails();
+				} catch (ApplicationException | UserException e) {
+					System.out.print("Something Went Wrong");
+					e.printStackTrace();
+				}
 				break;
 
 			case "0":
@@ -95,7 +101,6 @@ public class UserLoginOperation extends BaseOperation{
 		}
 	}
 	
-
 	private boolean setLoginDetails() throws ApplicationException, UserException {
 		loginTries += 1;
 		System.out.println("\nUser Login \n");
@@ -119,7 +124,7 @@ public class UserLoginOperation extends BaseOperation{
 	private void login(int accountNo, String password) throws ApplicationException, UserException {
 		
 		if (UserManager.getInstance().isValidUserPassword(accountNo, password)) {
-			System.out.println("User Login Successful!");
+			System.out.println("Account Login Successful!");
 			OperationFactory.getUserOperationInstance().showUserMenu(accountNo); 
 		} else {
 			System.out.println("\nUnable to load account with entered credentials. " +
@@ -127,4 +132,5 @@ public class UserLoginOperation extends BaseOperation{
 			setLoginDetails();
 		}
 	}
+
 }

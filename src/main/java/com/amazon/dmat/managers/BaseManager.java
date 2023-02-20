@@ -2,9 +2,14 @@ package com.amazon.dmat.managers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 import com.amazon.dmat.customExceptions.ApplicationException;
+import com.amazon.dmat.customExceptions.UserException;
 import com.amazon.dmat.dbtools.QueryExecutor;
+import com.amazon.dmat.dbtools.Validator;
+import com.amazon.dmat.operations.OperationFactory;
 import com.amazon.dmat.queryHelper.QueryBuilder;
 
 public class BaseManager {
@@ -221,5 +226,27 @@ public class BaseManager {
 		} catch (SQLException e) {
 			throw new ApplicationException("SQL exception");
 		}
+	}
+
+	protected float getAmountInput() throws UserException {
+		Scanner sc = OperationFactory.getScannerInstance();
+
+		float price;
+
+		try {
+			price = sc.nextFloat();
+		} catch (InputMismatchException e) {
+			throw new UserException("\n Please enter valid Price");
+		}
+
+		if (!Validator.isPositive(price)) {
+			throw new UserException("\n Price cannot be a negative number.");
+		}
+		
+		if(!Validator.isValidPrice(price)) {
+			throw new UserException("\n Price must be less than 10,00,00,000.00");
+		}
+		
+		return price;
 	}
 }

@@ -17,7 +17,7 @@ public class App
 		}
 		
 				
-		UserLoginOperation appDriver= new UserLoginOperation();
-		appDriver.initiate();
+		UserLoginOperation userLoginOperation= new UserLoginOperation();
+		userLoginOperation.initiate();
     }
 }

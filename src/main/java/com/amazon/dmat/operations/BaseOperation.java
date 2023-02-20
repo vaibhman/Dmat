@@ -14,6 +14,8 @@ public class BaseOperation {
 	private final static int MAX_PASSWORD_TRIES = 3;
 	private final static int MAX_EXISTING_PASSWORD_TRIES = 3;
 	
+	
+	//User Parameters
 	protected int getAccountNo() throws UserException {
 		Scanner sc = OperationFactory.getScannerInstance();
 
