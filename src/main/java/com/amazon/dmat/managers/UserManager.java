@@ -8,14 +8,27 @@ import com.amazon.dmat.customExceptions.UserException;
 import com.amazon.dmat.operations.OperationFactory;
 import com.amazon.dmat.queryHelper.QueryBuilder;
 
+
+/**
+ * The class UserManager is a child class of BaseManager.
+ * It works as a middle layer between the dbTools package/Lower Layer and the Operations
+ * package/Upper Layer.
+ * It contains functions related to userAccounts table such as read, create a record, validate data
+ * from table, operation specific functions which require db support, etc.
+ * It is used by the Upper Layers/Operations classes.
+ * It utilizes Lower Layer/dbTools package and helper classes via the parent - BaseManager which
+ * converts system exceptions to ApplicationExceptions.
+ **/
+
 public class UserManager extends BaseManager{
-	private static UserManager userAcManager;
+	
+	private static UserManager userManager;
 
 	public static UserManager getInstance() {
-		if (userAcManager == null) {
-			userAcManager = new UserManager();
+		if (userManager == null) {
+			userManager = new UserManager();
 		}
-		return userAcManager;
+		return userManager;
 	}
 	
 	

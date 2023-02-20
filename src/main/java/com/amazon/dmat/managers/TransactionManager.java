@@ -8,7 +8,7 @@ import com.amazon.dmat.queryHelper.QueryBuilder;
  * The class TransactionManager is a child class of BaseManager.
  * It works as a middle layer between the dbTools package/Lower Layer and the Operations
  * package/Upper Layer.
- * It contains functions related to Transaction table such as read, create a record, validate data
+ * It contains functions related to transactions table such as read, create a record, validate data
  * from table, operation specific functions which require db support, etc.
  * It is used by the Upper Layers/Operations classes.
  * It utilizes Lower Layer/dbTools package and helper classes via the parent - BaseManager which
