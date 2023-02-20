@@ -54,8 +54,6 @@ INSERT INTO userAccounts (accountNo, userName, password, accountBalance)
 VALUES(999999999, 'Vinod Mahajan', 'vino1234', 1567.33);
 INSERT INTO userAccounts (accountNo, userName, password, accountBalance)
 VALUES(999999998, 'Bikash Kumar', 'bika1234', 2000);
-INSERT INTO userAccounts (accountNo, userName, password, accountBalance)
-VALUES(999999997, 'Vijay Malya', 'vija1234', 5000);
 
 INSERT INTO shares (shareId, shareName, sharePrice)
 VALUES(1, 'Asian Paints', 2825.55);

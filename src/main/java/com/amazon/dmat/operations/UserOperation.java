@@ -201,7 +201,7 @@ public class UserOperation extends BaseOperation{
 		
 		int tShareQuantity = this.getShareQuantityInput();
 
-		if(availableQuantity==0 || availableQuantity<tShareQuantity) {
+		if(availableQuantity<1 || availableQuantity<tShareQuantity) {
 			System.out.println("Not Enough Shares.....");
 			return false;
 		}
@@ -222,13 +222,14 @@ public class UserOperation extends BaseOperation{
 
 		TransactionManager.getInstance().create(newTransaction);
 		
-		CurrentHolding newHolding = AssetFactory
+		CurrentHoldingManager
 				.getInstance()
-				.getCurrentHoldingInstance(accountNo, shareId, shareName, tShareQuantity, tSharePrice);
+				.update(accountNo, shareId, shareName, availableQuantity-tShareQuantity);
 		
-		CurrentHoldingManager.getInstance().create(newHolding);
+		int newAvailableQuantity = CurrentHoldingManager
+											.getInstance()
+											.availableQuantity(accountNo, shareId);
 		
-		int newAvailableQuantity = CurrentHoldingManager.getInstance().availableQuantity(accountNo, shareId);
 		if(newAvailableQuantity<1){
 			CurrentHoldingManager.getInstance().delete(accountNo, shareId);
 		}		

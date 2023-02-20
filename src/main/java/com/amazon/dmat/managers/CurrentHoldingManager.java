@@ -53,7 +53,7 @@ public class CurrentHoldingManager extends BaseManager{
 		  }
 	
 	public boolean viewUserShares(int accountNo) throws ApplicationException {
-		String[] columns= {"shareName", "shareQuantity", "shareBuyPrice"};
+		String[] columns= {"shareId","shareName", "shareQuantity", "shareBuyPrice"};
 		
 		QueryBuilder queryBuilder = this.getSelectInstance()
 				.selectColumns(columns)
@@ -67,7 +67,7 @@ public class CurrentHoldingManager extends BaseManager{
 			return false;
 		}
 		
-		String[] headers = {"SHARE NAME", "QUANTITY", "BUY PRICE"};
+		String[] headers = {"SHARE ID","SHARE NAME", "QUANTITY", "BUY PRICE"};
 		this.executeQuery(sqlQuery, headers);
 		
 		return true;
