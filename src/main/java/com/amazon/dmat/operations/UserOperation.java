@@ -114,6 +114,8 @@ public class UserOperation extends BaseOperation{
 
 	private boolean buyShare(int accountNo, float accountBalance) throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		System.out.println("For Your Reference...");
+		System.out.println("Account Balance: "+accountBalance);
+		System.out.println("------------List of Shares------------");
 		ShareManager.getInstance().viewAllShares();
 		
 		String tType="Buy";
@@ -186,7 +188,9 @@ public class UserOperation extends BaseOperation{
 	private boolean sellShare(int accountNo, float accountBalance) throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		System.out.println("For Your Reference...");
 		
-		CurrentHoldingManager.getInstance().viewUserShares(accountNo);
+		if(!CurrentHoldingManager.getInstance().viewUserShares(accountNo)) {
+			return false;
+		}
 		
 		String tType="Sell";
 		
