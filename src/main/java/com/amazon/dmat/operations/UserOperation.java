@@ -9,7 +9,7 @@ import com.amazon.dmat.managers.UserManager;
 
 public class UserOperation extends BaseOperation{
 	
-	void showUserMenu(int accountNo) throws ClassNotFoundException, SQLException, ApplicationException {
+	void showUserMenu(int accountNo) throws ClassNotFoundException, SQLException, ApplicationException, UserException {
 		
 		System.out.println("--------------------------------------");
 		System.out.println("------------- Welcome User ------------");
@@ -72,11 +72,14 @@ public class UserOperation extends BaseOperation{
 
 
 
-	private void buyShare(int accountNo, float accountBalance) throws ApplicationException {
+	private void buyShare(int accountNo, float accountBalance) throws ApplicationException, UserException {
 		System.out.println("For Your Reference...");
 		ShareManager.getInstance().viewAllShares();
-		System.out.println("Enter Share ID: ");
-		int shareId= this.getShareIdInput();
+		
+		System.out.println("\nEnter Share ID: ");
+		int shareId = this.getShareIdInput();
+		
+		String shareName = ShareManager.getInstance().getShareName(shareId);
 
 	}
 

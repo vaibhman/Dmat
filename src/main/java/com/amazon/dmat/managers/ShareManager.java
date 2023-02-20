@@ -79,4 +79,15 @@ public class ShareManager extends BaseManager{
 
 	    return this.hasResult(sqlQuery);
 	}
+
+	public String getShareName(int shareId) throws ApplicationException {
+		QueryBuilder queryBuilder = this.getSelectInstance()
+	              .selectColumns("shareName")
+	              .onTable("shares")
+	              .whereEq("shareId", shareId);
+		
+		String sqlQuery = this.buildQuery(queryBuilder);
+		System.out.println(sqlQuery);
+		return this.getQueryString(sqlQuery);
+	}
 }

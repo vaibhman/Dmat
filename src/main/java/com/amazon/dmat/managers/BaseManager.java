@@ -138,6 +138,20 @@ public class BaseManager {
 		}
 	}
 	
+	// Gets the first String result from a sqlQuery
+	protected String getQueryString(String sqlQuery) throws ApplicationException {
+		try {
+			return QueryExecutor
+					.getInstance()
+					.getQueryString(sqlQuery);
+		} catch (SQLException e) {
+			throw new ApplicationException("SQL exception");
+		} catch (ClassNotFoundException e) {
+			throw new ApplicationException("Class not found");
+		}
+	}
+	
+	// Gets the first floatresult from a sqlQuery
 	protected float getQueryNumberFloat(String sqlQuery) throws ApplicationException {
 		try {
 			return QueryExecutor

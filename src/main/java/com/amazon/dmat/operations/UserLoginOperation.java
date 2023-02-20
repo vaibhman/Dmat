@@ -106,10 +106,10 @@ public class UserLoginOperation extends BaseOperation{
 	private boolean setLoginDetails() throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		loginTries += 1;
 		System.out.println("\nUser Login \n");
-		System.out.println("Enter Account Number : \n");
+		System.out.println("\nEnter Account Number : \n");
 		int accountNo = this.getAccountNo();
 
-		System.out.println("Enter Password : \n");
+		System.out.println("\nEnter Password : \n");
 		String password = this.getPassword();
 
 		if (loginTries > maxLoginTries) {
