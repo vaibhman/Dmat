@@ -8,10 +8,58 @@ CREATE TABLE userAccounts(
 	password VARCHAR(50)
 );
 
+CREATE TABLE shares(
+	shareId INT NOT NULL PRIMARY KEY,
+	shareName VARCHAR(50),
+	sharePrice FLOAT(11,2)
+);
+				
+CREATE TABLE transactions(
+	transactionId INT NOT NULL PRIMARY KEY,
+	tType VARCHAR(4),
+	shareId INT,
+	shareName VARCHAR(50),
+	tSharePrice FLOAT(11,2),
+	tShareQuantity INT,
+	tCharge FLOAT(11,2),
+	tFinalAmount FLOAT(11,2),
+	transactionTime INT,
+	accountNo INT,
+	FOREIGN KEY(shareId) REFERENCES shares(shareId),
+	FOREIGN KEY(accountNo) REFERENCES userAccounts(accountNo)
+);
+
+
 #Insert Values
+
 INSERT INTO userAccounts (accountNo, userName, password, accountBalance)
 VALUES(999999999, 'Vinod Mahajan', 'vino1234', 1567.33);
 INSERT INTO userAccounts (accountNo, userName, password, accountBalance)
 VALUES(999999998, 'Bikash Kumar', 'bika1234', 2000);
 INSERT INTO userAccounts (accountNo, userName, password, accountBalance)
 VALUES(999999997, 'Vijay Malya', 'vija1234', 5000);
+
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(1, 'Asian Paints', 2825.55);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(2, 'Axis Bank', 846.75);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(3, 'Bharti Airtel', 779.15);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(4, 'HDFC Bank', 1640.35);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(5, 'Hero Motocorp', 2527.45);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(6, 'ICICI Bank', 852.10);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(7, 'Infosys', 1592.45);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(8, 'Maruti Suzuki', 8693.65);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(9, 'Reliance', 2414.40);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(10, 'TCS', 3487.30);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(11, 'Tata Motors', 443.00);
+INSERT INTO shares (shareId, shareName, sharePrice)
+VALUES(12, 'Wipro', 407.05);

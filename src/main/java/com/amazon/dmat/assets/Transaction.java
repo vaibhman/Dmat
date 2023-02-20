@@ -16,51 +16,53 @@ package com.amazon.dmat.assets;
 
 public class Transaction {
 	private int transactionId;	
+	private String tType;
 	private int shareId;
-	private int accountNo;
-	private int transactionTime;
-	private int tShareQuantity;
+	private String shareName;
 	private float tSharePrice;
+	private int tShareQuantity;
 	private float tCharge;
 	private float tFinalAmount;
-	private String tType;
+	private int transactionTime;
+	private int accountNo;
 	
-	public Transaction(int transactionId, int shareId, int accountNo, int transactionTime, int tShareQuantity,
-			float tSharePrice, float tCharge, float tFinalAmount, String tType) {
+	public Transaction(int transactionId, String tType, int shareId, String shareName, float tSharePrice,
+			int tShareQuantity, float tCharge, float tFinalAmount, int transactionTime, int accountNo) {
 		super();
 		this.transactionId = transactionId;
+		this.tType = tType;
 		this.shareId = shareId;
-		this.accountNo = accountNo;
-		this.transactionTime = transactionTime;
-		this.tShareQuantity = tShareQuantity;
+		this.shareName = shareName;
 		this.tSharePrice = tSharePrice;
+		this.tShareQuantity = tShareQuantity;
 		this.tCharge = tCharge;
 		this.tFinalAmount = tFinalAmount;
-		this.tType = tType;
+		this.transactionTime = transactionTime;
+		this.accountNo = accountNo;
 	}
 
 	public int getTransactionId() {
 		return transactionId;
 	}
 
+	public String gettType() {
+		return tType;
+	}
+
 	public int getShareId() {
 		return shareId;
 	}
 
-	public int getAccountNo() {
-		return accountNo;
-	}
-
-	public int getTransactionTime() {
-		return transactionTime;
-	}
-
-	public int gettShareQuantity() {
-		return tShareQuantity;
+	public String getShareName() {
+		return shareName;
 	}
 
 	public float gettSharePrice() {
 		return tSharePrice;
+	}
+
+	public int gettShareQuantity() {
+		return tShareQuantity;
 	}
 
 	public float gettCharge() {
@@ -71,7 +73,13 @@ public class Transaction {
 		return tFinalAmount;
 	}
 
-	public String gettType() {
-		return tType;
+	public int getTransactionTime() {
+		return transactionTime;
 	}
+
+	public int getAccountNo() {
+		return accountNo;
+	}
+
+	
 }
