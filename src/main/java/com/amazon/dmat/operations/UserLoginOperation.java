@@ -1,5 +1,7 @@
 package com.amazon.dmat.operations;
 
+import java.sql.SQLException;
+
 import com.amazon.dmat.assets.AssetFactory;
 import com.amazon.dmat.assets.User;
 import com.amazon.dmat.customExceptions.ApplicationException;
@@ -32,7 +34,7 @@ public class UserLoginOperation extends BaseOperation{
 			case "1":
 				try {
 					createAccount();
-				} catch (ApplicationException | UserException e) {
+				} catch (ApplicationException | UserException | ClassNotFoundException | SQLException e) {
 					System.out.print("Something Went Wrong");
 					e.printStackTrace();
 				}
@@ -41,7 +43,7 @@ public class UserLoginOperation extends BaseOperation{
 			case "2":
 				try {
 					setLoginDetails();
-				} catch (ApplicationException | UserException e) {
+				} catch (ApplicationException | UserException | ClassNotFoundException | SQLException e) {
 					System.out.print("Something Went Wrong");
 					e.printStackTrace();
 				}
@@ -60,7 +62,7 @@ public class UserLoginOperation extends BaseOperation{
 
 	}
 
-	private void createAccount() throws ApplicationException, UserException {
+	private void createAccount() throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		System.out.println("\nCreate your new User account");
 		System.out.println("\nPlease Enter the below details as prompted and Press Enter to confirm entry." +
 				"\nPress Enter Twice to return to Previous Menu. ");
@@ -101,7 +103,7 @@ public class UserLoginOperation extends BaseOperation{
 		}
 	}
 	
-	private boolean setLoginDetails() throws ApplicationException, UserException {
+	private boolean setLoginDetails() throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		loginTries += 1;
 		System.out.println("\nUser Login \n");
 		System.out.println("Enter Account Number : \n");
@@ -121,7 +123,7 @@ public class UserLoginOperation extends BaseOperation{
 		return true;
 	}
 	
-	private void login(int accountNo, String password) throws ApplicationException, UserException {
+	private void login(int accountNo, String password) throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		
 		if (UserManager.getInstance().isValidUserPassword(accountNo, password)) {
 			System.out.println("Account Login Successful!");

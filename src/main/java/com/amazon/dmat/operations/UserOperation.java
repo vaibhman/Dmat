@@ -39,6 +39,9 @@ public class UserOperation extends BaseOperation{
 				
 				try {
 					UserManager.getInstance().addMoney(accountNo, accountBalance);
+					System.out.println("/nMoney Added Successfully");
+					float newAccountBalance= UserManager.getInstance().getAccountBalance(accountNo);
+					System.out.println("Updated Account Balance is: "+newAccountBalance);
 				} catch (ClassNotFoundException | SQLException | ApplicationException | UserException e) {
 					System.out.println("Something Went Wrong...");
 					e.printStackTrace();
@@ -49,6 +52,10 @@ public class UserOperation extends BaseOperation{
 			case "3":
 				try {
 					UserManager.getInstance().withdrawMoney(accountNo, accountBalance);
+					System.out.println("/nMoney Withdrawed Successfully /n"
+							+ "The money will be credited to your account within 3-5 business days/n");
+					float newAccountBalance= UserManager.getInstance().getAccountBalance(accountNo);
+					System.out.println("Updated Account Balance is: "+newAccountBalance);
 				} catch (ClassNotFoundException | SQLException | ApplicationException | UserException e) {
 					System.out.println("Something Went Wrong...");
 					e.printStackTrace();
@@ -76,12 +83,9 @@ public class UserOperation extends BaseOperation{
 		System.out.println("Thank You For Using our Dmat Application\n");
 	}
 
-	private void displayAcDetails(int accountNo) {
-		// TODO Auto-generated method stub
-		
+	private boolean displayAcDetails(int accountNo) throws ApplicationException {
+		UserManager.getInstance().displayAcDetails(accountNo);
+		return true;
 	}
 
-	
-	
-	
 }

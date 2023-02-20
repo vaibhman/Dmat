@@ -52,8 +52,7 @@ public class UserManager extends BaseManager{
 
 		return this.hasResult(sqlQuery);
 	}
-	
-	
+
 	public boolean isValidUserPassword(int accountNo, String password) throws ApplicationException {
 		QueryBuilder queryBuilder = this.getSelectInstance()
 				.selectColumns("accountNo")
@@ -75,7 +74,6 @@ public class UserManager extends BaseManager{
 	              .whereEq("accountNo", accountNo);
 		
 		String sqlQuery = this.buildQuery(queryBuilder);
-		System.out.println(sqlQuery);
 		return this.getQueryNumberFloat(sqlQuery);
 	}
 	
@@ -129,4 +127,20 @@ public class UserManager extends BaseManager{
 		.setAccountBalance(accountNo, newValue);
 	}
 	
+	public boolean displayAcDetails(int accountNo) throws ApplicationException {
+		String[] columns= {"accountNo","userName","accountBalance", "password"};
+		QueryBuilder queryBuilder = this.getSelectInstance()
+	              .selectColumns(columns)
+	              .onTable("userAccounts")
+	              .whereEq("accountNo", accountNo);
+		
+		String sqlQuery = this.buildQuery(queryBuilder);
+		
+		this.executeQuery(sqlQuery, columns);
+		
+		return true;
+
+	}
+	
+
 }

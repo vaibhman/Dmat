@@ -1,0 +1,17 @@
+#CREATE DATABASE dmatdb;
+
+#Create Tables
+CREATE TABLE userAccounts(
+	accountNo INT NOT NULL PRIMARY KEY,
+	userName VARCHAR(50),
+	accountBalance FLOAT(11,2),
+	password VARCHAR(50)
+);
+
+#Insert Values
+INSERT INTO userAccounts (accountNo, userName, password, accountBalance)
+VALUES(999999999, 'Vinod Mahajan', 'vino1234', 1567.33);
+INSERT INTO userAccounts (accountNo, userName, password, accountBalance)
+VALUES(999999998, 'Bikash Kumar', 'bika1234', 2000);
+INSERT INTO userAccounts (accountNo, userName, password, accountBalance)
+VALUES(999999997, 'Vijay Malya', 'vija1234', 5000);
