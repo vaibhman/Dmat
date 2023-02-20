@@ -1,7 +1,6 @@
 package com.amazon.dmat.managers;
 
 import com.amazon.dmat.assets.Share;
-import com.amazon.dmat.assets.User;
 import com.amazon.dmat.customExceptions.ApplicationException;
 import com.amazon.dmat.queryHelper.QueryBuilder;
 
@@ -87,7 +86,18 @@ public class ShareManager extends BaseManager{
 	              .whereEq("shareId", shareId);
 		
 		String sqlQuery = this.buildQuery(queryBuilder);
-		System.out.println(sqlQuery);
+
 		return this.getQueryString(sqlQuery);
+	}
+	
+	public float getSharePrice(int shareId) throws ApplicationException {
+		QueryBuilder queryBuilder = this.getSelectInstance()
+	              .selectColumns("sharePrice")
+	              .onTable("shares")
+	              .whereEq("shareId", shareId);
+		
+		String sqlQuery = this.buildQuery(queryBuilder);
+
+		return this.getQueryNumberFloat(sqlQuery);
 	}
 }

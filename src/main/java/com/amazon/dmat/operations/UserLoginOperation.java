@@ -67,49 +67,43 @@ public class UserLoginOperation extends BaseOperation{
 		System.out.println("\nPlease Enter the below details as prompted and Press Enter to confirm entry." +
 				"\nPress Enter Twice to return to Previous Menu. ");
 
-		System.out.println("\n Account Number [9 Digit Number]: \n");
-		int accountNo = this.getAccountNo();
+		//System.out.println("\n Account Number [9 Digit Number]: \n");
 
-		boolean userAlreadyExists = UserManager.getInstance().isValidUser(accountNo);
 
-		if (userAlreadyExists) {
-			System.out.println("Account Number for " + accountNo + " already exists\n");
-		}
-		
-		if (!userAlreadyExists) {
-			System.out.println("\n Name : \n");
-			String name = this.getName();;
+		System.out.println("\n Name : \n");
+		String name = this.getName();;
 
-			System.out.println("\n Password : \n" +
-					"[Should be of at least 8 characters, contain only letters and digits and " +
-					"must contain at least 2 digits]");
-			String password = this.getPassword();
+		System.out.println("\n Password : \n" +
+				"[Should be of at least 8 characters, contain only letters and digits and " +
+				"must contain at least 2 digits]");
+		String password = this.getPassword();
 
-			System.out.println("\n Confirm Password : \n" +
-					"[Should be the same value as entered before]");
-			String confirmedPassword = this.getConfirmedPassword(password);
+		System.out.println("\n Confirm Password : \n" +
+				"[Should be the same value as entered before]");
+		String confirmedPassword = this.getConfirmedPassword(password);
 
-			float accountBalance = 0;
+		float accountBalance = 0;
 
-			User user = AssetFactory.getInstance().getUserInstance(accountNo, name, accountBalance, confirmedPassword);
+		User user = AssetFactory.getInstance().getUserInstance(name, accountBalance, confirmedPassword);
 
-			UserManager.getInstance().create(user);
+		UserManager.getInstance().create(user);
 
-			System.out.println("Your Account with Account Number: " + user.getAccountNo() +
-					" has been created ! \n");
-			System.out.println("Please Login with your Account Number and Password below : \n");
+		System.out.println("Your Account with Account Number: " + user.getAccountNo() +
+				" has been created ! \n");
+		System.out.println("Please Login with your Account Number and Password below : \n");
 
-			setLoginDetails();
-		}
+		setLoginDetails();
+
 	}
 	
 	private boolean setLoginDetails() throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		loginTries += 1;
+		System.out.println("------------------------------------------");
 		System.out.println("\nUser Login \n");
-		System.out.println("\nEnter Account Number : \n");
+		System.out.println("Enter Account Number : \n");
 		int accountNo = this.getAccountNo();
 
-		System.out.println("\nEnter Password : \n");
+		System.out.println("Enter Password : \n");
 		String password = this.getPassword();
 
 		if (loginTries > maxLoginTries) {

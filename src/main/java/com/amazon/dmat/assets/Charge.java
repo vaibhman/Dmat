@@ -8,8 +8,11 @@ package com.amazon.dmat.assets;
 
 
 public class Charge {
+	@SuppressWarnings("unused")
 	private float transactionCharge;
+	@SuppressWarnings("unused")
 	private float securitiesTransferTax;	
+	@SuppressWarnings("unused")
 	private float totalCharge;
 	
 	private static float transactionChargeRate = 0.5f;
@@ -21,32 +24,27 @@ public class Charge {
 		return chargeObject;
 	}
 
-	public static float getTransactionChargeRate() {
-		return transactionChargeRate;
-	}
-
 	public static void setTransactionChargeRate(float transactionChargeRate) {
 		Charge.transactionChargeRate = transactionChargeRate;
-	}
-
-	public static float getSecuritiesTransferTaxRate() {
-		return securitiesTransferTaxRate;
 	}
 
 	public static void setSecuritiesTransferTaxRate(float securitiesTransferTaxRate) {
 		Charge.securitiesTransferTaxRate = securitiesTransferTaxRate;
 	}
 
-	public float getTransactionCharge() {
-		return transactionCharge;
+	public static float getTransactionCharge(float amount) {
+		float tCharge = Math.max(100f,amount*transactionChargeRate/100);
+		return tCharge ;
 	}
 
-	public float getSecuritiesTransferTax() {
-		return securitiesTransferTax;
+	public static float getSecuritiesTransferTax(float amount) {
+		float stt = amount*securitiesTransferTaxRate/100;
+		return stt ;
 	}
 
-	public float getTotalCharge() {
-		return totalCharge;
+	public static float getTotalCharge(float amount) {
+		return getTransactionCharge(amount)
+				+getSecuritiesTransferTax(amount);
 	}
 	
 	

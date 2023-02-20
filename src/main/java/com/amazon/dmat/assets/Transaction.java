@@ -24,11 +24,11 @@ public class Transaction {
 	private int tShareQuantity;
 	private float tCharge;
 	private float tFinalAmount;
-	private int transactionTime;
+	private String transactionTime;
 	private int accountNo;
 	
 	public Transaction(int transactionId, String tType, int shareId, String shareName, float tSharePrice,
-			int tShareQuantity, float tCharge, float tFinalAmount, int transactionTime, int accountNo) {
+			int tShareQuantity, float tCharge, float tFinalAmount, String transactionTime, int accountNo) {
 		super();
 		this.transactionId = transactionId;
 		this.tType = tType;
@@ -74,7 +74,7 @@ public class Transaction {
 		return tFinalAmount;
 	}
 
-	public int getTransactionTime() {
+	public String getTransactionTime() {
 		return transactionTime;
 	}
 

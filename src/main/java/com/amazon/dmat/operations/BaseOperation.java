@@ -189,5 +189,21 @@ public class BaseOperation {
 		return shareId;
 	}
 	
+	protected int getShareQuantityInput() throws UserException{
+		Scanner sc = OperationFactory.getScannerInstance();
 
+		int shareQuantity;
+
+		try {
+			shareQuantity = sc.nextInt();
+		} catch (InputMismatchException e) {
+			throw new UserException("\n Please enter correct Share Id.");
+		}
+
+		if (!Validator.isPositive(shareQuantity)) {
+			throw new UserException("\n Share Quantity cannot be a negative number.");
+		}
+
+		return shareQuantity;
+	}
 }

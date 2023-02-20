@@ -23,7 +23,7 @@ CREATE TABLE transactions(
 	tShareQuantity INT,
 	tCharge FLOAT(11,2),
 	tFinalAmount FLOAT(11,2),
-	transactionTime INT,
+	transactionTime VARCHAR(50),
 	accountNo INT,
 	FOREIGN KEY(shareId) REFERENCES shares(shareId),
 	FOREIGN KEY(accountNo) REFERENCES userAccounts(accountNo)

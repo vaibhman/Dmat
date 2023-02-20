@@ -2,9 +2,13 @@ package com.amazon.dmat.operations;
 
 import java.sql.SQLException;
 
+import com.amazon.dmat.assets.AssetFactory;
+import com.amazon.dmat.assets.Charge;
+import com.amazon.dmat.assets.Transaction;
 import com.amazon.dmat.customExceptions.ApplicationException;
 import com.amazon.dmat.customExceptions.UserException;
 import com.amazon.dmat.managers.ShareManager;
+import com.amazon.dmat.managers.TransactionManager;
 import com.amazon.dmat.managers.UserManager;
 
 public class UserOperation extends BaseOperation{
@@ -69,19 +73,50 @@ public class UserOperation extends BaseOperation{
 	}
 
 
-
-
-
-	private void buyShare(int accountNo, float accountBalance) throws ApplicationException, UserException {
+	private boolean buyShare(int accountNo, float accountBalance) throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		System.out.println("For Your Reference...");
 		ShareManager.getInstance().viewAllShares();
+		
+		String tType="Buy";
 		
 		System.out.println("\nEnter Share ID: ");
 		int shareId = this.getShareIdInput();
 		
 		String shareName = ShareManager.getInstance().getShareName(shareId);
+		float tSharePrice = ShareManager.getInstance().getSharePrice(shareId);
 		
+		System.out.println("\nEnter Share Quantity to Buy: ");
+		int tShareQuantity = this.getShareQuantityInput();
 
+		float amount = tSharePrice*tShareQuantity;
+
+		float tCharge = Charge.getTotalCharge(amount);
+
+		float tFinalAmount = amount + tCharge;
+
+		if(tFinalAmount>accountBalance) {
+			System.out.println("Not Enough Balance To Complete The Transaction");
+			System.out.println("Please Use Deposit Money to Add Funds to Your Account");
+			return false;
+		}
+
+		Transaction newTransaction = AssetFactory
+									.getInstance()
+									.getTransactionInstance(tType, shareId, shareName, 
+											tSharePrice, tShareQuantity, tCharge, 
+											tFinalAmount, accountNo);
+
+		UserManager.getInstance().setAccountBalance(accountNo, accountBalance-tFinalAmount);
+
+		TransactionManager.getInstance().create(newTransaction);
+		
+		System.out.println("\nTransaction Successfull!!!");
+		System.out.println(tShareQuantity+" share of "+shareName+" Added to Your Account");
+		float newBalance= UserManager.getInstance().getAccountBalance(accountNo);
+		System.out.println("Your Updated Account Balance is: "+newBalance);
+		
+		System.out.println("--------------------------------------------------------");
+		return true;
 	}
 
 	private boolean displayAcDetails(int accountNo) throws ApplicationException {
@@ -92,7 +127,7 @@ public class UserOperation extends BaseOperation{
 	private void depositMoney(int accountNo, float accountBalance) {
 		try {
 			if(UserManager.getInstance().addMoney(accountNo, accountBalance)) {
-				System.out.println("/nMoney Added Successfully");
+				System.out.println("\nMoney Added Successfully");
 				float newAccountBalance= UserManager.getInstance().getAccountBalance(accountNo);
 				System.out.println("Updated Account Balance is: "+newAccountBalance);
 			}
@@ -100,13 +135,14 @@ public class UserOperation extends BaseOperation{
 			System.out.println("Something Went Wrong...");
 			e.printStackTrace();
 		}
+		System.out.println("--------------------------------------------------------");
 	}
 
 	private void withdrawMoney(int accountNo, float accountBalance) {
 		try {
 			if(UserManager.getInstance().withdrawMoney(accountNo, accountBalance)) {
-				System.out.println("/nMoney Withdrawed Successfully /n"
-						+ "The money will be credited to your account within 3-5 business days/n");
+				System.out.println("\nMoney Withdrawed Successfully \n"
+						+ "The money will be credited to your account within 3-5 business days\n");
 				float newAccountBalance= UserManager.getInstance().getAccountBalance(accountNo);
 				System.out.println("Updated Account Balance is: "+newAccountBalance);
 			}
@@ -114,5 +150,6 @@ public class UserOperation extends BaseOperation{
 			System.out.println("Something Went Wrong...");
 			e.printStackTrace();
 		}
+		System.out.println("--------------------------------------------------------");
 	}
 }
