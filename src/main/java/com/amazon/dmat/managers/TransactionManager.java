@@ -56,7 +56,24 @@ public class TransactionManager extends BaseManager {
 	    this.executeQuery(sqlQuery);
 	  }
 	  
+	  public boolean viewUserTransactions(int accountNo) throws ApplicationException {
+		  String[] columns= {"transactionId", "tType", "shareName","tSharePrice","tShareQuantity","tCharge", "tFinalAmount", "transactionTime"};
 
-	 
+		  QueryBuilder queryBuilder = this.getSelectInstance()
+				  .selectColumns(columns)
+				  .onTable("currentHoldings")
+				  .whereEq("accountNo", accountNo);
 
+		  String sqlQuery = this.buildQuery(queryBuilder);
+
+		  if (!this.hasResult(sqlQuery)) {
+			  System.out.println("You Do Not Have Any transactions in Your Account");
+			  return false;
+		  }
+
+		  String[] headers = {"TRANSACTION ID", "BUY/SELL","SHARE NAME","PRICE","QUANTITY", "CHARGE/TAX","TIME"};
+		  this.executeQuery(sqlQuery, headers);
+
+		  return true;
+	  }
 }

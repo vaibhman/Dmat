@@ -29,5 +29,27 @@ public class CurrentHoldingManager extends BaseManager{
 
 		this.executeQuery(sqlQuery);
 	}
+	
+	
+	public boolean viewUserShares(int accountNo) throws ApplicationException {
+		String[] columns= {"shareName", "shareQuantity", "shareBuyPrice"};
+		
+		QueryBuilder queryBuilder = this.getSelectInstance()
+				.selectColumns(columns)
+				.onTable("currentHoldings")
+				.whereEq("accountNo", accountNo);
+
+		String sqlQuery = this.buildQuery(queryBuilder);
+		
+		if (!this.hasResult(sqlQuery)) {
+			System.out.println("You Do Not Have Any Shares in Your Account");
+			return false;
+		}
+		
+		String[] headers = {"SHARE NAME", "QUANTITY", "BUY PRICE"};
+		this.executeQuery(sqlQuery, headers);
+		
+		return true;
+	}
 
 }

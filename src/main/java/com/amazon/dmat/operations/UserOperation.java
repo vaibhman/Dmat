@@ -30,8 +30,8 @@ public class UserOperation extends BaseOperation{
 			System.out.println("\n 1. Display Demat account details "
 					+ "\n 2. Deposit Money"
 					+ "\n 3. Withdraw Money"
-					+ "\n 4. Buy transaction"
-					+ "\n 5. Sell transaction"
+					+ "\n 4. Buy Shares"
+					+ "\n 5. Sell Shares"
 					+ "\n 6. View transaction report"
 					+ "\n 0. Exit this Menu ");
 
@@ -59,6 +59,7 @@ public class UserOperation extends BaseOperation{
 				break;
 				
 			case "6":
+				viewTransactions(accountNo);
 				break;
 
 			case "0":
@@ -72,6 +73,11 @@ public class UserOperation extends BaseOperation{
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		System.out.println("---Thank You For Using our Dmat Application---\n");
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	}
+
+
+	private void viewTransactions(int accountNo) throws ApplicationException {
+		TransactionManager.getInstance().viewUserTransactions(accountNo);
 	}
 
 
@@ -128,6 +134,7 @@ public class UserOperation extends BaseOperation{
 	}
 
 	private boolean displayAcDetails(int accountNo) throws ApplicationException {
+		System.out.println("Your Account Details are: ");
 		UserManager.getInstance().displayAcDetails(accountNo);
 		return true;
 	}

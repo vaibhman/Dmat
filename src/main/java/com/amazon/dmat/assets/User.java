@@ -1,8 +1,5 @@
 package com.amazon.dmat.assets;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 /*
  * accountNo 		: Account number (Unique Id);
  * userName 		: User name; 
@@ -16,8 +13,6 @@ public class User {
 	private String userName;
 	private float accountBalance;
 	private String password;
-	private ArrayList<Share> userShares;
-	private HashMap<String, Integer> shareCounts;
 	
 	public User(int accountNo, String userName, float accountBalance, String password) {
 		super();
@@ -37,14 +32,6 @@ public class User {
 
 	public float getAccountBalance() {
 		return accountBalance;
-	}
-
-	public ArrayList<Share> getUserShares() {
-		return userShares;
-	}
-
-	public HashMap<String, Integer> getShareCounts() {
-		return shareCounts;
 	}
 
 	public String getPassword() {
