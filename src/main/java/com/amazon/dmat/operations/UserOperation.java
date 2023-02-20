@@ -138,29 +138,37 @@ public class UserOperation extends BaseOperation{
 			System.out.println("Please Use Deposit Money to Add Funds to Your Account");
 			return false;
 		}
-
+		
 		Transaction newTransaction = AssetFactory
 									.getInstance()
 									.getTransactionInstance(tType, shareId, shareName, 
 											tSharePrice, tShareQuantity, tCharge, 
 											tFinalAmount, accountNo);
-
+		
 		UserManager.getInstance().setAccountBalance(accountNo, accountBalance-tFinalAmount);
-
+		
 		TransactionManager.getInstance().create(newTransaction);
 		
 		if(CurrentHoldingManager
 				.getInstance()
 				.isShareInUserAccount(accountNo,shareId)) {
-			int availableQuantity = CurrentHoldingManager.getInstance().availableQuantity(accountNo, shareId);
-			CurrentHoldingManager.getInstance().update(accountNo, shareId, "shareQuantity", availableQuantity+tShareQuantity);
 			
+			int availableQuantity = CurrentHoldingManager.getInstance().availableQuantity(accountNo, shareId);
+			
+			CurrentHoldingManager
+				.getInstance()
+				.update(accountNo, shareId, "shareQuantity", availableQuantity+tShareQuantity);
+		
 		}else {
+			
 			CurrentHolding newHolding = AssetFactory
 					.getInstance()
 					.getCurrentHoldingInstance(accountNo, shareId, shareName, tShareQuantity, tSharePrice);
 			
-			CurrentHoldingManager.getInstance().create(newHolding);
+			CurrentHoldingManager
+				.getInstance()
+				.create(newHolding);
+
 		}
 		
 

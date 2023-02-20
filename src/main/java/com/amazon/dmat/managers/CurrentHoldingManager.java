@@ -87,16 +87,13 @@ public class CurrentHoldingManager extends BaseManager{
 
 	public boolean isShareInUserAccount(int accountNo, int shareId) throws ApplicationException {
 		QueryBuilder queryBuilder = this.getSelectInstance()
+				.selectColumns("shareQuantity")
 				.onTable("currentHoldings")
 				.whereEq("accountNo", accountNo)
 				.whereEq("shareId", shareId);
 
 		String sqlQuery = this.buildQuery(queryBuilder);
 		
-	    if (!this.hasResult(sqlQuery)) {
-	        System.out.println("No Bus Records Found");
-	        return false;
-	      }
-		return true;
+	    return this.hasResult(sqlQuery);
 	}
 }
