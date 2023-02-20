@@ -50,6 +50,33 @@ public class ShareManager extends BaseManager{
 		this.executeQuery(sqlQuery);
 	}
 	
-	
-	
+	public boolean viewAllShares() throws ApplicationException {
+		String[] columns = {"shareId", "shareName", "sharePrice"};
+
+		QueryBuilder queryBuilder = this.getSelectInstance()
+				.selectColumns(columns)
+				.onTable("shares");
+
+		String sqlQuery = this.buildQuery(queryBuilder);
+
+		if (!this.hasResult(sqlQuery)) {
+			System.out.println("No Shares Found");
+			return false;
+		}
+
+		String[] headers = {"SHARE ID", "SHARE NAME", "PRICE"};
+		this.executeQuery(sqlQuery, headers);
+		return true;
+	}
+
+	public boolean isShareExist(int shareId) throws ApplicationException {
+	    QueryBuilder queryBuilder = this.getSelectInstance()
+	            .selectColumns("shareId")
+	            .onTable("shares")
+	            .whereEq("shareId", shareId);
+
+	    String sqlQuery = this.buildQuery(queryBuilder);
+
+	    return this.hasResult(sqlQuery);
+	}
 }

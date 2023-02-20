@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.amazon.dmat.customExceptions.ApplicationException;
 import com.amazon.dmat.customExceptions.UserException;
+import com.amazon.dmat.managers.ShareManager;
 import com.amazon.dmat.managers.UserManager;
 
 public class UserOperation extends BaseOperation{
@@ -71,8 +72,12 @@ public class UserOperation extends BaseOperation{
 
 
 
-	private void buyShare(int accountNo, float accountBalance) {
-		
+	private void buyShare(int accountNo, float accountBalance) throws ApplicationException {
+		System.out.println("For Your Reference...");
+		ShareManager.getInstance().viewAllShares();
+		System.out.println("Enter Share ID: ");
+		int shareId= this.getShareIdInput();
+
 	}
 
 	private boolean displayAcDetails(int accountNo) throws ApplicationException {

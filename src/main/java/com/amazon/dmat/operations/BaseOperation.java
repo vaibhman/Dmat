@@ -6,6 +6,7 @@ import java.util.Scanner;
 import com.amazon.dmat.customExceptions.ApplicationException;
 import com.amazon.dmat.customExceptions.UserException;
 import com.amazon.dmat.dbtools.Validator;
+import com.amazon.dmat.managers.ShareManager;
 import com.amazon.dmat.managers.UserManager;
 
 public class BaseOperation {
@@ -164,5 +165,29 @@ public class BaseOperation {
 	protected boolean arePasswordsMatching(String oldPassword, String newPassword) {
 		return Validator.arePasswordsMatching(oldPassword,newPassword);
 	}
+	
+	//Share Parameters
+	protected int getShareIdInput() throws UserException, ApplicationException {
+		Scanner sc = OperationFactory.getScannerInstance();
+
+		int shareId;
+
+		try {
+			shareId = sc.nextInt();
+		} catch (InputMismatchException e) {
+			throw new UserException("\n Please enter correct Share Id.");
+		}
+
+		if (!Validator.isPositive(shareId)) {
+			throw new UserException("\n Share Id cannot be a negative number.");
+		}
+		
+		if(!ShareManager.getInstance().isShareExist(shareId)) {
+			throw new UserException("\n Share Id Does not exist.");
+		}
+		
+		return shareId;
+	}
+	
 
 }
