@@ -224,7 +224,7 @@ public class UserOperation extends BaseOperation{
 		
 		CurrentHoldingManager
 				.getInstance()
-				.update(accountNo, shareId, shareName, availableQuantity-tShareQuantity);
+				.update(accountNo, shareId, "shareQuantity", availableQuantity-tShareQuantity);
 		
 		int newAvailableQuantity = CurrentHoldingManager
 											.getInstance()
