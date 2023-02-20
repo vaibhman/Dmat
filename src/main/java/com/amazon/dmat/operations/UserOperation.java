@@ -222,7 +222,7 @@ public class UserOperation extends BaseOperation{
 		
 		int newAvailableQuantity = CurrentHoldingManager.getInstance().availableQuantity(accountNo, shareId);
 		if(newAvailableQuantity<1){
-			CurrentHoldingManager.getInstance().delete(accountNumber, shareId);
+			CurrentHoldingManager.getInstance().delete(accountNo, shareId);
 		}		
 		
 		System.out.println("\nTransaction Successfull !!!");
