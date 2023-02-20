@@ -52,4 +52,15 @@ public class CurrentHoldingManager extends BaseManager{
 		return true;
 	}
 
+	public int availableQuantity(int accountNo, int shareId) throws ApplicationException {
+		QueryBuilder queryBuilder = this.getSelectInstance()
+				.selectColumns("shareQuantity")
+				.onTable("currentHoldings")
+				.whereEq("accountNo", accountNo)
+				.whereEq("shareId",shareId);
+
+		String sqlQuery = this.buildQuery(queryBuilder);
+		
+		return this.getQueryNumber(sqlQuery);
+	}
 }

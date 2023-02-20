@@ -56,6 +56,7 @@ public class UserOperation extends BaseOperation{
 				break;
 				
 			case "5":
+				sellShare(accountNo, accountBalance);
 				break;
 				
 			case "6":
@@ -76,10 +77,40 @@ public class UserOperation extends BaseOperation{
 	}
 
 
-	private void viewTransactions(int accountNo) throws ApplicationException {
-		TransactionManager.getInstance().viewUserTransactions(accountNo);
+	private boolean displayAcDetails(int accountNo) throws ApplicationException {
+		System.out.println("Your Account Details are: ");
+		UserManager.getInstance().displayAcDetails(accountNo);
+		return true;
 	}
 
+	private void depositMoney(int accountNo, float accountBalance) {
+		try {
+			if(UserManager.getInstance().addMoney(accountNo, accountBalance)) {
+				System.out.println("\nMoney Added Successfully");
+				float newAccountBalance= UserManager.getInstance().getAccountBalance(accountNo);
+				System.out.println("Updated Account Balance is: "+newAccountBalance);
+			}
+		} catch (ClassNotFoundException | SQLException | ApplicationException | UserException e) {
+			System.out.println("Something Went Wrong...");
+			e.printStackTrace();
+		}
+		System.out.println("--------------------------------------------------------");
+	}
+
+	private void withdrawMoney(int accountNo, float accountBalance) {
+		try {
+			if(UserManager.getInstance().withdrawMoney(accountNo, accountBalance)) {
+				System.out.println("\nMoney Withdrawed Successfully \n"
+						+ "The money will be credited to your account within 3-5 business days\n");
+				float newAccountBalance= UserManager.getInstance().getAccountBalance(accountNo);
+				System.out.println("Updated Account Balance is: "+newAccountBalance);
+			}
+		} catch (ClassNotFoundException | SQLException | ApplicationException | UserException e) {
+			System.out.println("Something Went Wrong...");
+			e.printStackTrace();
+		}
+		System.out.println("--------------------------------------------------------");
+	}
 
 	private boolean buyShare(int accountNo, float accountBalance) throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		System.out.println("For Your Reference...");
@@ -133,38 +164,63 @@ public class UserOperation extends BaseOperation{
 		return true;
 	}
 
-	private boolean displayAcDetails(int accountNo) throws ApplicationException {
-		System.out.println("Your Account Details are: ");
-		UserManager.getInstance().displayAcDetails(accountNo);
+
+	private boolean sellShare(int accountNo, float accountBalance) throws ApplicationException, UserException, ClassNotFoundException, SQLException {
+		System.out.println("For Your Reference...");
+		
+		CurrentHoldingManager.getInstance().viewUserShares(accountNo);
+		
+		String tType="Sell";
+		
+		System.out.println("\nEnter Share ID: ");
+		int shareId = this.getShareIdInput();
+		
+		String shareName = ShareManager.getInstance().getShareName(shareId);
+		float tSharePrice = ShareManager.getInstance().getSharePrice(shareId);
+		int availableQuantity = CurrentHoldingManager.getInstance().availableQuantity(accountNo, shareId);
+		
+		System.out.println("\nEnter Share Quantity to Sell: ");
+		
+		int tShareQuantity = this.getShareQuantityInput();
+
+		if(availableQuantity==0 || availableQuantity<tShareQuantity) {
+			System.out.println("Not Enough Shares.....");
+			return false;
+		}
+		
+		float amount = tSharePrice*tShareQuantity;
+
+		float tCharge = Charge.getTotalCharge(amount);
+
+		float tFinalAmount = amount - tCharge;
+
+		Transaction newTransaction = AssetFactory
+									.getInstance()
+									.getTransactionInstance(tType, shareId, shareName, 
+											tSharePrice, tShareQuantity, tCharge, 
+											tFinalAmount, accountNo);
+
+		UserManager.getInstance().setAccountBalance(accountNo, accountBalance+tFinalAmount);
+
+		TransactionManager.getInstance().create(newTransaction);
+		
+		CurrentHolding newHolding = AssetFactory
+				.getInstance()
+				.getCurrentHoldingInstance(accountNo, shareId, shareName, tShareQuantity, tSharePrice);
+		
+		CurrentHoldingManager.getInstance().create(newHolding);
+		
+		System.out.println("\nTransaction Successfull !!!");
+		System.out.println(tShareQuantity+" share of "+shareName+" Sold!");
+		float newBalance= UserManager.getInstance().getAccountBalance(accountNo);
+		System.out.println("Your Updated Account Balance is: "+newBalance);
+		
+		System.out.println("--------------------------------------------------------");
 		return true;
 	}
 
-	private void depositMoney(int accountNo, float accountBalance) {
-		try {
-			if(UserManager.getInstance().addMoney(accountNo, accountBalance)) {
-				System.out.println("\nMoney Added Successfully");
-				float newAccountBalance= UserManager.getInstance().getAccountBalance(accountNo);
-				System.out.println("Updated Account Balance is: "+newAccountBalance);
-			}
-		} catch (ClassNotFoundException | SQLException | ApplicationException | UserException e) {
-			System.out.println("Something Went Wrong...");
-			e.printStackTrace();
-		}
-		System.out.println("--------------------------------------------------------");
-	}
-
-	private void withdrawMoney(int accountNo, float accountBalance) {
-		try {
-			if(UserManager.getInstance().withdrawMoney(accountNo, accountBalance)) {
-				System.out.println("\nMoney Withdrawed Successfully \n"
-						+ "The money will be credited to your account within 3-5 business days\n");
-				float newAccountBalance= UserManager.getInstance().getAccountBalance(accountNo);
-				System.out.println("Updated Account Balance is: "+newAccountBalance);
-			}
-		} catch (ClassNotFoundException | SQLException | ApplicationException | UserException e) {
-			System.out.println("Something Went Wrong...");
-			e.printStackTrace();
-		}
-		System.out.println("--------------------------------------------------------");
+	
+	private void viewTransactions(int accountNo) throws ApplicationException {
+		TransactionManager.getInstance().viewUserTransactions(accountNo);
 	}
 }

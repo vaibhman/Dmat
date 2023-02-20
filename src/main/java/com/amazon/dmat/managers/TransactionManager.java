@@ -61,17 +61,17 @@ public class TransactionManager extends BaseManager {
 
 		  QueryBuilder queryBuilder = this.getSelectInstance()
 				  .selectColumns(columns)
-				  .onTable("currentHoldings")
+				  .onTable("transactions")
 				  .whereEq("accountNo", accountNo);
 
 		  String sqlQuery = this.buildQuery(queryBuilder);
-
+		  
 		  if (!this.hasResult(sqlQuery)) {
 			  System.out.println("You Do Not Have Any transactions in Your Account");
 			  return false;
 		  }
 
-		  String[] headers = {"TRANSACTION ID", "BUY/SELL","SHARE NAME","PRICE","QUANTITY", "CHARGE/TAX","TIME"};
+		  String[] headers = {"TRANSACTION ID", "BUY/SELL","SHARE NAME","PRICE","QUANTITY", "CHARGE/TAX","FINAL AMOUNT", "TIME"};
 		  this.executeQuery(sqlQuery, headers);
 
 		  return true;
