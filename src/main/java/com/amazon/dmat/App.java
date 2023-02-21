@@ -1,12 +1,6 @@
 package com.amazon.dmat;
 
-
-
-import java.sql.SQLException;
-
-import com.amazon.dmat.customExceptions.ApplicationException;
 import com.amazon.dmat.dbtools.ConnectionManager;
-import com.amazon.dmat.managers.TransactionManager;
 import com.amazon.dmat.operations.UserLoginOperation;
 
 public class App 
