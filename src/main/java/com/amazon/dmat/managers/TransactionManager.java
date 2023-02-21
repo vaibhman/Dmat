@@ -1,5 +1,8 @@
 package com.amazon.dmat.managers;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.amazon.dmat.assets.Transaction;
 import com.amazon.dmat.customExceptions.ApplicationException;
 import com.amazon.dmat.queryHelper.QueryBuilder;
@@ -55,9 +58,12 @@ public class TransactionManager extends BaseManager {
 
 		  this.executeQuery(sqlQuery);
 	  }
-	  
+
+	  /*
 	  public boolean viewUserTransactions(int accountNo) throws ApplicationException {
-		  String[] columns= {"transactionId", "tType", "shareName","tSharePrice","tShareQuantity","tCharge", "tFinalAmount", "transactionTime"};
+		  String[] columns= {"transactionId", "tType", "shareName",
+				  "tSharePrice","tShareQuantity","tCharge", 
+				  "tFinalAmount", "transactionTime"};
 
 		  QueryBuilder queryBuilder = this.getSelectInstance()
 				  .selectColumns(columns)
@@ -73,6 +79,42 @@ public class TransactionManager extends BaseManager {
 
 		  String[] headers = {"TRANSACTION ID", "BUY/SELL","SHARE NAME","PRICE","QUANTITY", "CHARGE/TAX","FINAL AMOUNT", "TIME"};
 		  this.executeQuery(sqlQuery, headers);
+
+		  return true;
+	  }*/
+	  
+	  public boolean viewUserTransactions(int accountNo) throws SQLException, ApplicationException{
+		  String[] columns= {"transactionId", "tType", "shareName",
+				  "tSharePrice","tShareQuantity","tCharge", 
+				  "tFinalAmount", "transactionTime"};
+
+		  QueryBuilder queryBuilder = this.getSelectInstance()
+				  .selectColumns(columns)
+				  .onTable("transactions")
+				  .whereEq("accountNo", accountNo);
+
+		  String sqlQuery = this.buildQuery(queryBuilder);
+
+		  if (!this.hasResult(sqlQuery)) {
+			  System.out.println("You Do Not Have Any transactions in Your Account");
+			  return false;
+		  }
+
+		  ResultSet resultSet = this.getResultSet(sqlQuery);
+
+		  while(resultSet.next()) {
+			  System.out.println("----------------------------------");
+			  System.out.println("Transaction Id\t: " + resultSet.getInt(1));
+			  System.out.println("is Buy/Sell\t: " + resultSet.getString(2));
+			  System.out.println("Share Name\t: " + resultSet.getString(3));
+			  System.out.println("Share Price\t: " + resultSet.getFloat(4));
+			  System.out.println("Share Quantity\t: " + resultSet.getInt(5));
+			  System.out.println("Charge & Tax\t: " + resultSet.getFloat(6));
+			  System.out.println("Final Amount\t: " + resultSet.getFloat(7));
+			  System.out.println("Date & Time\t: " + resultSet.getString(8));
+			  System.out.println("----------------------------------");
+		  }
+		  System.out.println("----------------------------------");
 
 		  return true;
 	  }

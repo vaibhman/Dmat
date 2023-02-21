@@ -249,6 +249,11 @@ public class UserOperation extends BaseOperation{
 
 	
 	private void viewTransactions(int accountNo) throws ApplicationException {
-		TransactionManager.getInstance().viewUserTransactions(accountNo);
+		try {
+			TransactionManager.getInstance().viewUserTransactions(accountNo);
+		} catch (SQLException | ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
