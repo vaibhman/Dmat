@@ -30,7 +30,7 @@ public class BaseOperation {
 		}
 
 		if (!Validator.isPositive(userId)) {
-			throw new UserException("\n Account Number cannot be a negative number.");
+			throw new UserException("\n Account Number cannot be a negative number. \n");
 		}
 
 		if (!Validator.isValidUserIdLength(userId)) {
@@ -48,11 +48,11 @@ public class BaseOperation {
 		try {
 			name = sc.nextLine();
 		} catch (InputMismatchException e) {
-			throw new UserException("Entered Name is Invalid");
+			throw new UserException("Entered Name is Invalid \n");
 		}
 
 		if (!Validator.isValidNameLength(name)) {
-			throw new UserException("Name should be below 50 characters ");
+			throw new UserException("Name should be below 50 characters \n");
 		}
 
 		if (!Validator.isAlphabeticWithSpaceAndDots(name)) {
@@ -84,14 +84,14 @@ public class BaseOperation {
 				try {
 					password = sc.next();
 				} catch (InputMismatchException e) {
-					throw new UserException("Entered Password is Invalid ");
+					throw new UserException("Entered Password is Invalid  \n");
 				}
 			} else {
 				return password;
 			}
 		}
 		if (!Validator.isValidPassword(password)) {
-			throw new UserException("Password tries Exhausted");
+			throw new UserException("Password tries Exhausted \n");
 		}
 		return password;
 	}
@@ -106,7 +106,7 @@ public class BaseOperation {
 		try {
 			confirmedPassword = sc.next();
 		} catch (InputMismatchException e) {
-			throw new UserException("Entered Password is Invalid ");
+			throw new UserException("Entered Password is Invalid \n");
 		}
 
 		while (passwordConfirmTries <= MAX_PASSWORD_CONFIRM_TRIES) {
@@ -117,14 +117,14 @@ public class BaseOperation {
 				try {
 					confirmedPassword = sc.next();
 				} catch (InputMismatchException e) {
-					throw new UserException("Entered Password is Invalid ");
+					throw new UserException("Entered Password is Invalid \n");
 				}
 			} else {
 				return confirmedPassword;
 			}
 		}
 		if (!Validator.arePasswordsMatching(password, confirmedPassword)) {
-			throw new UserException("Both Passwords do not match. Password tries Exhausted");
+			throw new UserException("Both Passwords do not match. Password tries Exhausted\n");
 		}
 		return confirmedPassword;
 	}
@@ -138,7 +138,7 @@ public class BaseOperation {
 		try {
 			existingPassword = sc.next();
 		} catch (InputMismatchException e) {
-			throw new UserException("Entered Password is Invalid ");
+			throw new UserException("Entered Password is Invalid \n");
 		}
 
 		while (passwordEntryCount <= MAX_EXISTING_PASSWORD_TRIES) {
@@ -149,7 +149,7 @@ public class BaseOperation {
 				try {
 					existingPassword = sc.next();
 				} catch (InputMismatchException e) {
-					throw new UserException("Entered Password is invalid.");
+					throw new UserException("Entered Password is invalid.\n");
 				}
 			} else {
 				return existingPassword;
@@ -157,7 +157,7 @@ public class BaseOperation {
 		}
 		if (!UserManager.getInstance().isValidUserPassword(userId, existingPassword)) {
 			throw new UserException("Entered Password does not match existing value." +
-					"Password tries Exhausted");
+					"Password tries Exhausted\n");
 		}
 		return existingPassword;
 	}
@@ -175,15 +175,15 @@ public class BaseOperation {
 		try {
 			shareId = sc.nextInt();
 		} catch (InputMismatchException e) {
-			throw new UserException("\n Please enter correct Share Id.");
+			throw new UserException("\n Please enter correct Share Id.\n");
 		}
 
 		if (!Validator.isPositive(shareId)) {
-			throw new UserException("\n Share Id cannot be a negative number.");
+			throw new UserException("\n Share Id cannot be a negative number.\n");
 		}
 		
 		if(!ShareManager.getInstance().isShareExist(shareId)) {
-			throw new UserException("\n Share Id Does not exist.");
+			throw new UserException("\n Share Id Does not exist.\n");
 		}
 		
 		return shareId;
@@ -197,11 +197,11 @@ public class BaseOperation {
 		try {
 			shareQuantity = sc.nextInt();
 		} catch (InputMismatchException e) {
-			throw new UserException("\n Please enter correct Share Id.");
+			throw new UserException("\n Please enter correct Share Id.\n");
 		}
 
 		if (!Validator.isPositive(shareQuantity)) {
-			throw new UserException("\n Share Quantity cannot be a negative number.");
+			throw new UserException("\n Share Quantity cannot be a negative number.\n");
 		}
 
 		return shareQuantity;

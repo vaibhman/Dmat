@@ -4,8 +4,7 @@ package com.amazon.dmat.assets;
  * accountNo 		: Account number (Unique Id);
  * userName 		: User name; 
  * accountBalance	: Money in the account 
- * userShares		: List of shares
- * shareCounts		: hashmap<ShareName, number of shares baught>
+ * password			: Login password
 */
 
 public class User {

@@ -17,8 +17,11 @@ public class UserOperation extends BaseOperation{
 	
 	void showUserMenu(int accountNo) throws ClassNotFoundException, SQLException, ApplicationException, UserException {
 		
+		String userName= UserManager.getInstance().getUserName(accountNo);
+		
+		
 		System.out.println("--------------------------------------");
-		System.out.println("------------- Welcome User ------------");
+		System.out.println("------- Welcome "+userName+" --------");
 		System.out.println("--------------------------------------");
 		
 		boolean exitCode = false;
@@ -32,7 +35,8 @@ public class UserOperation extends BaseOperation{
 					+ "\n 3. Withdraw Money"
 					+ "\n 4. Buy Shares"
 					+ "\n 5. Sell Shares"
-					+ "\n 6. View transaction report"
+					+ "\n 6. View All Shares"
+					+ "\n 7. View Transaction Report"
 					+ "\n 0. Exit this Menu ");
 
 			String choice = OperationFactory.getScannerInstance().next();
@@ -44,7 +48,6 @@ public class UserOperation extends BaseOperation{
 
 			case "2":
 				depositMoney(accountNo, accountBalance);
-
 				break;
 				
 			case "3":
@@ -60,9 +63,12 @@ public class UserOperation extends BaseOperation{
 				break;
 				
 			case "6":
-				viewTransactions(accountNo);
+				viewAllShares();
 				break;
 
+			case "7":
+				viewTransactions(accountNo);
+				break;
 			case "0":
 				exitCode = true;
 				break;
@@ -71,9 +77,12 @@ public class UserOperation extends BaseOperation{
 				System.out.println("Please Enter Valid Option");
 			}
 		}
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		System.out.println("---Thank You For Using our Dmat Application---\n");
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("------ Returning to Main Menu ------");
+	}
+
+
+	private void viewAllShares() throws ApplicationException {
+		ShareManager.getInstance().viewAllShares();
 	}
 
 
@@ -116,7 +125,7 @@ public class UserOperation extends BaseOperation{
 		System.out.println("For Your Reference...");
 		System.out.println("Account Balance: "+accountBalance);
 		System.out.println("------------List of Shares------------");
-		ShareManager.getInstance().viewAllShares();
+		viewAllShares();
 		
 		String tType="Buy";
 		

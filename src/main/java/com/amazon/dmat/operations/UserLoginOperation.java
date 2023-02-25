@@ -14,10 +14,6 @@ public class UserLoginOperation extends BaseOperation{
 	private static int loginTries = 0;
 	
 	public void initiate()  {
-		/*a. Create a Demat account - Create a D-MAT account with needed details
-			(Mentioned Below).
-			b. Login - It should ask for the account number in order to login (The account
-			number should be an integer value).*/
 
 		boolean exitCode = false;
 
@@ -26,7 +22,7 @@ public class UserLoginOperation extends BaseOperation{
 			System.out.println("\nSelect an option :");
 			System.out.println("\n 1. Create a Demat account "
 					+ "\n 2. Login "
-					+ "\n 0. Exit ");
+					+ "\n 0. Exit \n");
 
 			String choice = OperationFactory.getScannerInstance().next();
 
@@ -57,15 +53,15 @@ public class UserLoginOperation extends BaseOperation{
 				System.out.println("Please Enter Valid Option");
 			}
 		}
-
-		System.out.println("Thank You For Using our Dmat Application\n");
-
+		System.out.println("*********************************************");
+		System.out.println("Thank You For Using our Dmat Application");
+		System.out.println("*********************************************");
 	}
 
 	private void createAccount() throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		System.out.println("\nCreate your new User account");
 		System.out.println("\nPlease Enter the below details as prompted and Press Enter to confirm entry." +
-				"\nPress Enter Twice to return to Previous Menu. ");
+				"\nPress Enter Twice to return to Previous Menu. \n");
 
 		//System.out.println("\n Account Number [9 Digit Number]: \n");
 
@@ -99,11 +95,11 @@ public class UserLoginOperation extends BaseOperation{
 	private boolean setLoginDetails() throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		loginTries += 1;
 		System.out.println("------------------------------------------");
-		System.out.println("\nUser Login \n");
-		System.out.println("Enter Account Number : \n");
+		System.out.println("\nUser Login ");
+		System.out.println("\nEnter Account Number : ");
 		int accountNo = this.getAccountNo();
 
-		System.out.println("Enter Password : \n");
+		System.out.println("\nEnter Password : ");
 		String password = this.getPassword();
 
 		if (loginTries > maxLoginTries) {
@@ -120,7 +116,7 @@ public class UserLoginOperation extends BaseOperation{
 	private void login(int accountNo, String password) throws ApplicationException, UserException, ClassNotFoundException, SQLException {
 		
 		if (UserManager.getInstance().isValidUserPassword(accountNo, password)) {
-			System.out.println("Account Login Successful!");
+			System.out.println("\nAccount Login Successful!");
 			OperationFactory.getUserOperationInstance().showUserMenu(accountNo); 
 		} else {
 			System.out.println("\nUnable to load account with entered credentials. " +

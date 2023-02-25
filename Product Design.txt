@@ -1,18 +1,18 @@
-OOPS 
-	1. User	
+1. Flow Mapping
+
+2. OOPS 
+		User	
 				accountNo 		: Account number (Unique Id);
 				userName 		: User name; 
 				accountBalance	: Money in the account 
-				userShares		: List of shares
-				shareCounts		: hashmap<ShareName, number of shares baught>
-				
-	2. Share
-				shareId		: Id of Share(Unique Id)
+				password		: Login password				
+		Share
+				shareId		: Id of Share (Unique Id)
 				shareName	: Name of Share
 				sharePrice	: Price of Share
 				
-	3. Transaction
-				transactionId	: Transaction Id	
+		Transaction
+				transactionId	: Transaction Id (Unique Id)
 				tType			: Buy or sell
 				shareId			: Id of Share(Foreign key)
 				shareName		: Name of Share
@@ -24,12 +24,31 @@ OOPS
 				accountNo		: Account number of user(Foreign key)
 				
 				
-	4. Charge
+		Charge
 				transactionCharge		: transaction charge of 0.5%
 				securitiesTransferTax	: of 0.1% of the overall transaction
 				totalCharge				: Total charge on transaction
 				
-				
-RelationShips 
-	UserAc has Transaction 	| 1 to many
-	UserAC has Share 		| 1 to many
+		
+		CurrentHolding
+				accountNo		: Account number of User
+				shareId			: Id of Share
+				shareName		: Name of Share
+				shareQuantity	: Quantity of Share
+				shareBuyPrice	: Buy Price of Share
+			
+3. ORM -> Entity relationship | DBMS
+
+4. Code the Project
+
+5. Test cases
+
+6. Build the project
+	Packaging of Project in a Jar File
+	JAR -> Java Archive
+
+
+> Eclipse IDE
+	Build tool -> Maven
+
+> MySQL DataBase

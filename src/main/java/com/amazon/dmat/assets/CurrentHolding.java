@@ -1,5 +1,14 @@
 package com.amazon.dmat.assets;
 
+/*
+ * accountNo		: Account number of User
+ * shareId			: Id of Share
+ * shareName		: Name of Share
+ * shareQuantity	: Quantity of Share
+ * shareBuyPrice	: Buy Price of Share
+ * */
+
+
 public class CurrentHolding {
 	private int accountNo;
 	private int shareId;

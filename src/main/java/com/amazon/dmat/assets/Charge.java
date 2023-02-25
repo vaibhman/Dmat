@@ -10,8 +10,10 @@ package com.amazon.dmat.assets;
 public class Charge {
 	@SuppressWarnings("unused")
 	private float transactionCharge;
+	
 	@SuppressWarnings("unused")
-	private float securitiesTransferTax;	
+	private float securitiesTransferTax;
+	
 	@SuppressWarnings("unused")
 	private float totalCharge;
 	

@@ -54,6 +54,37 @@ public class ConnectionManager {
 			throw e;
 		}
 	}
+	
+	public static Connection getConnection2() throws SQLException, ClassNotFoundException {
+		try{
+			File file = new File(FILEPATH);
+			if(file.exists()){
+				FileReader reader = new FileReader(file);
+				BufferedReader buffer= new BufferedReader(reader);
+				URL = buffer.readLine();
+				USER= buffer.readLine();
+				PASSWORD= buffer.readLine();
+				buffer.close();
+				reader.close();
+				//System.out.println("[DB] configured using files");
+			}
+		}catch(Exception e){
+			System.err.println("FILEPATH argument Error: "+e);
+		}
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			
+			//System.out.println("Database Connected");
+			return con;
+		} catch (Exception e) {
+			System.out.println("Connection Issue Found");
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }
 
 

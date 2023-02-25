@@ -80,6 +80,17 @@ public class UserManager extends BaseManager{
 		return this.hasResult(sqlQuery);
 	}
 	
+	public String getUserName(int accountNo) throws ClassNotFoundException, SQLException, ApplicationException {	
+
+		QueryBuilder queryBuilder = this.getSelectInstance()
+	              .selectColumns("userName")
+	              .onTable("userAccounts")
+	              .whereEq("accountNo", accountNo);
+		
+		String sqlQuery = this.buildQuery(queryBuilder);
+		return this.getQueryString(sqlQuery);
+	}
+	
 	public float getAccountBalance(int accountNo) throws ClassNotFoundException, SQLException, ApplicationException {	
 
 		QueryBuilder queryBuilder = this.getSelectInstance()
